@@ -3,13 +3,6 @@ import Adafruit_CharLCD as LCD
 
 class ScreenController(object):
 
-    BUTTONS = ( (LCD.SELECT, currentScreen.btnUp),
-                (LCD.LEFT,   currentScreen.btnLeft),
-                (LCD.UP,     currentScreen.btnLeft),
-                (LCD.DOWN,   currentScreen.btnLeft),
-                (LCD.RIGHT,  currentScreen.btnLeft)
-            )
-
     def __init__(self):
         self.currentScreenId = 0
 
@@ -17,8 +10,6 @@ class ScreenController(object):
             screens.AudioControl(screenCtrl=self)
         ]
         self.lcd = LCD.Adafruit_CharLCDPlate()
-    
-
     
     def lcdLoop(self):
         buttons = ( (LCD.SELECT, self.currentScreen.btnUp),

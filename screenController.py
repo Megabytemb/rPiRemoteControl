@@ -14,8 +14,7 @@ class ScreenController(object):
         self.currentScreenId = 0
 
         self.screens = [
-            screens.AudioControl(screenCtrl=self),
-            screens.Stock(screenCtrl=self)
+            screens.AudioControl(screenCtrl=self)
         ]
         self.lcd = LCD.Adafruit_CharLCDPlate()
     

@@ -5,8 +5,7 @@ screenCtrl = ScreenController()
 def main():
 
     while True:
-        input = raw_input(">: ")
-        screenCtrl.handle(input)
+        screenCtrl.lcdLoop()
 
 if __name__ == '__main__':
     main()

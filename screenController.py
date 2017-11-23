@@ -1,7 +1,14 @@
 import screens
-import Adafruit_CharLCD
+import Adafruit_CharLCD as LCD
 
 class ScreenController(object):
+
+    BUTTONS = ( (LCD.SELECT, currentScreen.btnUp),
+                (LCD.LEFT,   currentScreen.btnLeft),
+                (LCD.UP,     currentScreen.btnLeft),
+                (LCD.DOWN,   currentScreen.btnLeft),
+                (LCD.RIGHT,  currentScreen.btnLeft)
+            )
 
     def __init__(self):
         self.currentScreenId = 0
@@ -10,18 +17,21 @@ class ScreenController(object):
             screens.AudioControl(screenCtrl=self),
             screens.Stock(screenCtrl=self)
         ]
-        self.lcd = Adafruit_CharLCD.Adafruit_CharLCDPlate()
+        self.lcd = LCD.Adafruit_CharLCDPlate()
     
-    def handle(self, input):
 
-        if input.lower() == "up":
-            self.currentScreen.btnUp()
     
-        if input.lower() == "down":
-            self.currentScreen.btnDown()
-        
-        if input.lower() == "select":
-            self.currentScreen.btnSelect()
+    def lcdLoop(self):
+        buttons = ( (LCD.SELECT, self.currentScreen.btnUp),
+                    (LCD.LEFT,   self.currentScreen.btnLeft),
+                    (LCD.UP,     self.currentScreen.btnUp),
+                    (LCD.DOWN,   self.currentScreen.btnDown),
+                    (LCD.RIGHT,  self.currentScreen.btnRight)
+            )
+
+        for button in buttons:
+            if self.lcd.is_pressed(button[0]):
+                button[1]()
     
     def incrementScreen(self):
         newID = self.currentScreenId + 1
